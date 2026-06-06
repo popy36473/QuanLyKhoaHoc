@@ -1,16 +1,15 @@
 package app;
 
+import presentation.MainView;
 import utils.DBUtil;
 
 import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
-        Connection con;
+        MainView mainView = new MainView();
+        mainView.showMenu();
 
-        con = DBUtil.openConnection();
-        if (con != null){
-            System.out.println("Kết nối thành công");
-        }
+
     }
 }
