@@ -1,14 +1,17 @@
 package presentation;
 
+import business.ICourseService;
+import business.impl.CourseServiceImpl;
+
 import java.util.Scanner;
 
 public class AdminView {
+
+
+
     public void showMenu(){
-
-
         int choose;
         Scanner sc = new Scanner(System.in);
-
         do {
             System.out.println("========= MENU ADMIN =========");
             System.out.println(" 1. Quản lý khóa học ");
@@ -18,7 +21,6 @@ public class AdminView {
             System.out.println(" 5.Đăng xuất ");
             System.out.println("===============================");
             System.out.println(" Nhập lựa chọn của bạn: ");
-
             try {
                 choose = Integer.parseInt(sc.nextLine());
             }catch (NumberFormatException e){
@@ -27,6 +29,8 @@ public class AdminView {
             }
             switch (choose) {
                 case 1:
+                    CourseView courseView = new CourseView();
+                    courseView.showMenu();
                     break;
                 case 2:
                     break;
@@ -42,4 +46,9 @@ public class AdminView {
             }
         }while (choose != 5);
     }
+
+
+
+
+
 }

@@ -11,15 +11,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        //MainView mainView = new MainView();
-        //mainView.showMenu();
+        MainView mainView = new MainView();
+        mainView.showMenu();
 
-        ICourseDAO courseDAO = new CourseDAOImpl();
 
-        List<Course> courses = courseDAO.sortByIdAsc();
-
-        for (Course course : courses) {
-            System.out.println(course);
-        }
     }
 }
