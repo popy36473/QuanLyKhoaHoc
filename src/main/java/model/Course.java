@@ -12,12 +12,10 @@ public class Course {
     public Course() {
     }
 
-    public Course(Integer id, String name, Integer duration, String instructor, LocalDate createdAt) {
-        this.id = id;
+    public Course(String name, Integer duration, String instructor) {
         this.name = name;
         this.duration = duration;
         this.instructor = instructor;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -58,5 +56,14 @@ public class Course {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id +
+                " | Tên khóa học  : " + name +
+                " | Thời lượng : " + duration +
+                " | Giảng viên : " + instructor +
+                " | Ngày tạo : " + createdAt;
     }
 }

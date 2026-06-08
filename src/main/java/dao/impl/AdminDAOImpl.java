@@ -15,8 +15,8 @@ public class AdminDAOImpl implements IAdminDAO {
     @Override
     public Admin login(String username, String password) {
         Connection con;
-        PreparedStatement pstmt;
-        ResultSet rs;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         con = DBUtil.openConnection();
         try {
             pstmt = con.prepareStatement("SELECT id,username,password  " +
@@ -36,6 +36,8 @@ public class AdminDAOImpl implements IAdminDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi đăng nhập",e);
+        }finally {
+            DBUtil.closeConnection(pstmt,rs,con);
         }
         return null;
     }
