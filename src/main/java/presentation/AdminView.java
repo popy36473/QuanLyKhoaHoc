@@ -1,54 +1,57 @@
 package presentation;
 
-import business.ICourseService;
-import business.impl.CourseServiceImpl;
-
 import java.util.Scanner;
 
 public class AdminView {
+    private Scanner sc = new Scanner(System.in);
 
+    public void showMenu() {
+        int choice;
 
-
-    public void showMenu(){
-        int choose;
-        Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("========= MENU ADMIN =========");
-            System.out.println(" 1. Quản lý khóa học ");
-            System.out.println(" 2. Quản lý học viên ");
-            System.out.println(" 3. Quản lý đăng ký học ");
-            System.out.println(" 4.Thống kê học viên theo khóa học ");
-            System.out.println(" 5.Đăng xuất ");
-            System.out.println("===============================");
-            System.out.println(" Nhập lựa chọn của bạn: ");
+            System.out.println("\n========== MENU ADMIN ==========");
+            System.out.println("1. Quản lý khóa học");
+            System.out.println("2. Quản lý học viên");
+            System.out.println("3. Quản lý đăng ký học");
+            System.out.println("4. Thống kê");
+            System.out.println("5. Đăng xuất");
+            System.out.print("Nhập lựa chọn: ");
+
             try {
-                choose = Integer.parseInt(sc.nextLine());
-            }catch (NumberFormatException e){
-                System.out.println(" Lựa chọn không hợp lệ ");
-                choose = -1;
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Bạn phải nhập số.");
+                choice = -1;
             }
-            switch (choose) {
+
+            switch (choice) {
                 case 1:
                     CourseView courseView = new CourseView();
                     courseView.showMenu();
                     break;
+
                 case 2:
+                    StudentView studentView = new StudentView();
+                    studentView.showMenu();
                     break;
+
                 case 3:
+                    EnrollmentView enrollmentView = new EnrollmentView();
+                    enrollmentView.showMenu();
                     break;
+
                 case 4:
+                    System.out.println("Chức năng thống kê sẽ làm sau.");
                     break;
+
                 case 5:
+                    System.out.println("Đăng xuất thành công.");
                     break;
+
                 default:
-                    System.out.println("Vui lòng nhập số từ 1 - 5 ");
-                    break;
+                    System.out.println("Lựa chọn không hợp lệ.");
             }
-        }while (choose != 5);
+
+        } while (choice != 5);
     }
-
-
-
-
-
 }

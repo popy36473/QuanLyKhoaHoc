@@ -1,9 +1,10 @@
-package dao;
+package business;
 
 import model.Student;
+
 import java.util.List;
 
-public interface IStudentDAO {
+public interface IStudentService {
     Student login(String email, String password);
 
     List<Student> findAll();

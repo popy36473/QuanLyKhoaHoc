@@ -7,7 +7,7 @@ public class Student {
     private String name;
     private LocalDate dob;
     private String email;
-    private Integer sex;
+    private String sex;
     private String phone;
     private String password;
     private LocalDate createdAt;
@@ -15,7 +15,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer id, String name, LocalDate dob, String email, Integer sex, String phone, String password, LocalDate createdAt) {
+    public Student(Integer id, String name, LocalDate dob, String email, String sex, String phone, String password, LocalDate createdAt) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -58,11 +58,11 @@ public class Student {
         this.email = email;
     }
 
-    public Integer getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -88,5 +88,18 @@ public class Student {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        String gender = "1".equals(sex) ? "Nam" : "Nu";
+
+        return "ID: " + id +
+                " | Ten hoc vien: " + name +
+                " | Ngay sinh: " + dob +
+                " | Email: " + email +
+                " | Gioi tinh: " + gender +
+                " | SDT: " + phone +
+                " | Ngay tao: " + createdAt;
     }
 }

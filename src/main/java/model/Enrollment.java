@@ -3,45 +3,78 @@ package model;
 import java.time.LocalDateTime;
 
 public class Enrollment {
-    private int id;
-    private int student_id;
-    private int course_id;
+    private Integer id;
+    private Integer studentId;
+    private String studentName;
+    private String studentEmail;
+
+    private Integer courseId;
+    private String courseName;
+
     private LocalDateTime registeredAt;
     private String status;
 
     public Enrollment() {
     }
 
-    public Enrollment(int id, int student_id, int course_id, LocalDateTime registeredAt, String status) {
+    public Enrollment(Integer id, Integer studentId, String studentName, String studentEmail,
+                      Integer courseId, String courseName, LocalDateTime registeredAt, String status) {
         this.id = id;
-        this.student_id = student_id;
-        this.course_id = course_id;
+        this.studentId = studentId;
+        this.studentName = studentName;
+        this.studentEmail = studentEmail;
+        this.courseId = courseId;
+        this.courseName = courseName;
         this.registeredAt = registeredAt;
         this.status = status;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getStudent_id() {
-        return student_id;
+    public Integer getStudentId() {
+        return studentId;
     }
 
-    public void setStudent_id(int student_id) {
-        this.student_id = student_id;
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
-    public int getCourse_id() {
-        return course_id;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setCourse_id(int course_id) {
-        this.course_id = course_id;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public LocalDateTime getRegisteredAt() {
