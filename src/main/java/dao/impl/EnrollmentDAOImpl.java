@@ -204,4 +204,141 @@ public class EnrollmentDAOImpl implements IEnrollmentDAO {
             DBUtil.closeConnection(pstmt, null, con);
         }
     }
+
+    @Override
+    public boolean registerCourse(int studentId, int courseId) {
+        String sql = """
+            INSERT INTO enrollment(student_id, course_id, status)
+            VALUES (?, ?, 'WAITING')
+            """;
+
+        Connection con = DBUtil.openConnection();
+        PreparedStatement pstmt = null;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, studentId);
+            pstmt.setInt(2, courseId);
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi đăng ký khóa học", e);
+        } finally {
+            DBUtil.closeConnection(pstmt, null, con);
+        }
+    }
+
+    @Override
+    public List<Enrollment> findByStudentId(int studentId) {
+        List<Enrollment> enrollments = new ArrayList<>();
+
+        String sql = """
+            SELECT 
+                e.id,
+                s.id AS student_id,
+                s.name AS student_name,
+                s.email AS student_email,
+                c.id AS course_id,
+                c.name AS course_name,
+                e.registered_at,
+                e.status
+            FROM enrollment e
+            JOIN student s ON e.student_id = s.id
+            JOIN course c ON e.course_id = c.id
+            WHERE s.id = ?
+            ORDER BY e.registered_at DESC
+            """;
+
+        Connection con = DBUtil.openConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, studentId);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Enrollment enrollment = mapResultSetToEnrollment(rs);
+                enrollments.add(enrollment);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi lấy danh sách khóa học đã đăng ký", e);
+        } finally {
+            DBUtil.closeConnection(pstmt, rs, con);
+        }
+
+        return enrollments;
+    }
+
+    @Override
+    public Enrollment findByStudentAndCourse(int studentId, int courseId) {
+        String sql = """
+            SELECT 
+                e.id,
+                s.id AS student_id,
+                s.name AS student_name,
+                s.email AS student_email,
+                c.id AS course_id,
+                c.name AS course_name,
+                e.registered_at,
+                e.status
+            FROM enrollment e
+            JOIN student s ON e.student_id = s.id
+            JOIN course c ON e.course_id = c.id
+            WHERE s.id = ? AND c.id = ?
+            """;
+
+        Connection con = DBUtil.openConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, studentId);
+            pstmt.setInt(2, courseId);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return mapResultSetToEnrollment(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi kiểm tra đăng ký khóa học", e);
+        } finally {
+            DBUtil.closeConnection(pstmt, rs, con);
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean cancelEnrollment(int enrollmentId) {
+        String sql = """
+            DELETE FROM enrollment
+            WHERE id = ? AND status = 'WAITING'
+            """;
+
+        Connection con = DBUtil.openConnection();
+        PreparedStatement pstmt = null;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, enrollmentId);
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi hủy đăng ký khóa học", e);
+        } finally {
+            DBUtil.closeConnection(pstmt, null, con);
+        }
+    }
 }

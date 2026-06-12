@@ -14,4 +14,15 @@ public interface IEnrollmentDAO {
     boolean approve(int id);
 
     boolean deleteById(int id);
+
+
+
+
+    boolean registerCourse(int studentId, int courseId);
+
+    List<Enrollment> findByStudentId(int studentId);
+
+    Enrollment findByStudentAndCourse(int studentId, int courseId);
+
+    boolean cancelEnrollment(int enrollmentId);
 }

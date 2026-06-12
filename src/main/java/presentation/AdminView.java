@@ -41,7 +41,8 @@ public class AdminView {
                     break;
 
                 case 4:
-                    System.out.println("Chức năng thống kê sẽ làm sau.");
+                    StatisticView statisticView = new StatisticView();
+                    statisticView.showMenu();
                     break;
 
                 case 5:

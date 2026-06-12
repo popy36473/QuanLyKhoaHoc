@@ -31,6 +31,8 @@ public class MainView {
                     loginAdmin();
                     break;
                 case 2:
+                    StudentAccountView studentAccountView = new StudentAccountView();
+                    studentAccountView.showMenu();
                     break;
                 case 3:
                     System.out.println("Thoát chương trình");

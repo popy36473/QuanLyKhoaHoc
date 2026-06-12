@@ -66,4 +66,56 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
 
         return enrollmentDAO.deleteById(id);
     }
+
+    @Override
+    public boolean registerCourse(int studentId, int courseId) {
+        if (studentId <= 0 || courseId <= 0) {
+            return false;
+        }
+
+        Enrollment oldEnrollment = enrollmentDAO.findByStudentAndCourse(studentId, courseId);
+
+        if (oldEnrollment != null) {
+            return false;
+        }
+
+        return enrollmentDAO.registerCourse(studentId, courseId);
+    }
+
+
+    @Override
+    public List<Enrollment> findByStudentId(int studentId) {
+        if (studentId <= 0) {
+            return List.of();
+        }
+
+        return enrollmentDAO.findByStudentId(studentId);
+    }
+
+    @Override
+    public Enrollment findByStudentAndCourse(int studentId, int courseId) {
+        if (studentId <= 0 || courseId <= 0) {
+            return null;
+        }
+
+        return enrollmentDAO.findByStudentAndCourse(studentId, courseId);
+    }
+
+    @Override
+    public boolean cancelEnrollment(int enrollmentId) {
+        if (enrollmentId <= 0) {
+            return false;
+        }
+
+        Enrollment enrollment = enrollmentDAO.findById(enrollmentId);
+
+        if (enrollment == null) {
+            return false;
+        }
+
+        if (!"WAITING".equals(enrollment.getStatus())) {
+            return false;
+        }
+        return enrollmentDAO.cancelEnrollment(enrollmentId);
+    }
 }
