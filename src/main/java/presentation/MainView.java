@@ -65,6 +65,7 @@ public class MainView {
 
                 AdminView adminView = new AdminView();
                 adminView.showMenu();
+                return;
             }
 
             System.out.println(" Tài khoản hoặc mật khẩu không đúng! ");
@@ -92,9 +93,7 @@ public class MainView {
                         System.out.println(" Vui lòng chọn 1 hoặc 2 ");
                         break;
                 }
-
             } while (choice != 1);
-
         }
     }
 }

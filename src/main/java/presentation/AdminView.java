@@ -51,6 +51,7 @@ public class AdminView {
 
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
+                    break;
             }
 
         } while (choice != 5);

@@ -32,7 +32,7 @@ public class EnrollmentView {
 
             switch (choice) {
                 case 1:
-                    displayAllEnrollments();
+                    displayEnrollmentsPaging();
                     break;
 
                 case 2:
@@ -183,6 +183,72 @@ public class EnrollmentView {
                     enrollment.getCourseId(),
                     enrollment.getCourseName(),
                     enrollment.getStatus());
+        }
+    }
+
+    private void displayEnrollmentsPaging() {
+        List<Enrollment> enrollments = enrollmentService.findAll();
+
+        if (enrollments == null || enrollments.isEmpty()) {
+            System.out.println("Chưa có đăng ký khóa học nào.");
+            return;
+        }
+
+        int pageSize = 5;
+        int currentPage = 1;
+        int totalEnrollments = enrollments.size();
+        int totalPages = (int) Math.ceil((double) totalEnrollments / pageSize);
+
+        while (true) {
+            int fromIndex = (currentPage - 1) * pageSize;
+            int toIndex = Math.min(fromIndex + pageSize, totalEnrollments);
+
+            List<Enrollment> enrollmentsOnPage = enrollments.subList(fromIndex, toIndex);
+
+            printEnrollmentTable(enrollmentsOnPage);
+
+            System.out.println("\nTrang " + currentPage + "/" + totalPages);
+            System.out.println("1. Trang sau");
+            System.out.println("2. Trang trước");
+            System.out.println("3. Quay lại");
+            System.out.print("Chọn: ");
+
+            int choice = inputInt();
+
+            switch (choice) {
+                case 1:
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                    } else {
+                        System.out.println("Đang ở trang cuối.");
+                    }
+                    break;
+
+                case 2:
+                    if (currentPage > 1) {
+                        currentPage--;
+                    } else {
+                        System.out.println("Đang ở trang đầu.");
+                    }
+                    break;
+
+                case 3:
+                    return;
+
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+                    break;
+            }
+        }
+    }
+
+    private int inputInt() {
+        while (true) {
+            try {
+                return Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print("Vui lòng nhập số: ");
+            }
         }
     }
 }
